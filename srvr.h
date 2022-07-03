@@ -32,8 +32,8 @@ const char *password = "63650802977324380###";   //"your password";
 UBYTE *BlackImage;
 
 /* Static IP address Settings ------------------------------------------------*/
-IPAddress staticIP(192, 168, 0, 113);
-IPAddress gateway(192, 168, 0, 1);
+IPAddress staticIP(192, 168, 178, 113);
+IPAddress gateway(192, 168, 178, 1);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress dns(223, 5, 5, 5);
 
@@ -130,7 +130,7 @@ bool Srvr__file(WiFiClient client, int fileIndex, char *fileName)
         sendJS_D(client);
         break;
     case 5:
-        client.("Unterwegs");
+        //client.("Unterwegs");
         break;
     }
 
