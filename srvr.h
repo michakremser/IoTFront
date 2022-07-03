@@ -48,8 +48,14 @@ IPAddress myIP;        // IP address in your local wifi net
 bool isIndexPage = true; // true : GET  request, client needs 'index' page;
 // false: POST request, server sends empty page.
 
+struct anzeigeInfo{
+  char aktuellesMeeting[200];
+  int tag;
+  int monat;
+  char datum[12];
+  };
 
-void myDeserialize(){
+anzeigeInfo myDeserialize(){
   char json[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
 
   DynamicJsonDocument doc(1024);
@@ -57,10 +63,20 @@ void myDeserialize(){
 
   Serial.println("Deserialize in Serial ");
 
+  struct anzeigeInfo myInfo;
+  strcpy(myInfo.aktuellesMeeting, "jawohl");
+  myInfo.tag = 23;
+  myInfo.monat = 7;  
+  strcpy(myInfo.datum, "03.07.2022");
+  
+  const char *Meeting5="MeetIt5";
+  const char aktuellesMeeting[3]="jo";
+
   const char* sensor = doc["sensor"];
   long time          = doc["time"];
   double latitude    = doc["data"][0];
   double longitude   = doc["data"][1];
+  return myInfo;
   }
 /* Server initialization -------------------------------------------------------*/
 void Srvr__setup()
@@ -209,8 +225,11 @@ bool Srvr__loop()
                 printf("SelectImage:BlackImage\r\n");
                 Paint_SelectImage(BlackImage);
                 Paint_Clear(WHITE);
-
-                myDeserialize();
+                double mylongitude;
+                struct anzeigeInfo myInfo;
+                myInfo=myDeserialize();  
+       
+                //mylongitude=myDeserialize();
                 const char *Meeting6="Meet6";
 
                 // 2.Drawing on the image
@@ -225,12 +244,14 @@ bool Srvr__loop()
                 Paint_DrawString_EN(30, 210, "Folgende Meetings:", &Font24, WHITE, BLACK);
                 Paint_DrawString_EN(30, 260, "Meeting 2", &Font20, WHITE, BLACK);
                 Paint_DrawString_EN(30, 300, "Meeting 3", &Font20, WHITE, BLACK);
-                Paint_DrawString_EN(30, 340, "Meeting 4", &Font20, WHITE, BLACK);
-                Paint_DrawString_EN(30, 380, "Meeting 5", &Font20, WHITE, BLACK);
+                Paint_DrawString_EN(30, 340, myInfo.aktuellesMeeting, &Font20, WHITE, BLACK);
+                Paint_DrawString_EN(30, 380, "Meeting5", &Font20, WHITE, BLACK);
                 Paint_DrawString_EN(30, 420, Meeting6, &Font20, WHITE, BLACK);
-                Paint_DrawNum(30, 20, 24, &Font20, WHITE, BLACK);
-                Paint_DrawNum(70, 20, 11, &Font20, WHITE, BLACK);
-                Paint_DrawNum(110, 20, 2022, &Font20, WHITE, BLACK);                
+                //Paint_DrawNum(200, 20, mylongitude, &Font20, WHITE, BLACK);
+                Paint_DrawNum(30, 20, myInfo.tag , &Font20, WHITE, BLACK);
+                Paint_DrawNum(70, 20, myInfo.monat, &Font20, WHITE, BLACK);
+                Paint_DrawNum(110, 20, 2022, &Font20, WHITE, BLACK);
+                Paint_DrawString_EN(250, 20, myInfo.datum, &Font20, BLACK, WHITE);               
                 Paint_DrawString_EN(650, 95, "Raum", &Font24, BLACK, WHITE);
                 Paint_DrawNum(670, 125, 12, &Font24, WHITE, BLACK);
 
