@@ -15,6 +15,7 @@
 /* Includes ------------------------------------------------------------------*/
 //#include <ESP8266WiFi.h>// ESP8266 and WiFi classes
 #include <WiFi.h>
+#include "WifiCon.h"
 
 #include "buff.h" // POST request data accumulator
 #include "DEV_Config.h"
@@ -26,8 +27,8 @@
 #include "html.h"    // HTML page of the tool
 
 /* SSID and password of your WiFi net ----------------------------------------*/
-const char *ssid = "FRITZ!Box 7530 XF"; //"your ssid";
-const char *password = "63650802977324380###";   //"your password";
+//const char *ssid = "FRITZ!Box 7530 XF"; //"your ssid";
+//const char *password = "63650802977324380###";   //"your password";
 
 UBYTE *BlackImage;
 
