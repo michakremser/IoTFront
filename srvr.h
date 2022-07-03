@@ -1,3 +1,5 @@
+#include <ArduinoJson.h>
+
 /**
  ******************************************************************************
  * @file    srvr.h
@@ -45,6 +47,21 @@ IPAddress myIP;        // IP address in your local wifi net
 /* The 'index' page flag ------------------------------------------------------*/
 bool isIndexPage = true; // true : GET  request, client needs 'index' page;
 // false: POST request, server sends empty page.
+
+
+void myDeserialize(){
+  char json[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
+
+  DynamicJsonDocument doc(1024);
+  deserializeJson(doc, json);
+
+  Serial.println("Deserialize in Serial ");
+
+  const char* sensor = doc["sensor"];
+  long time          = doc["time"];
+  double latitude    = doc["data"][0];
+  double longitude   = doc["data"][1];
+  }
 /* Server initialization -------------------------------------------------------*/
 void Srvr__setup()
 {
@@ -131,7 +148,7 @@ bool Srvr__file(WiFiClient client, int fileIndex, char *fileName)
         sendJS_D(client);
         break;
     case 5:
-        //client.("Unterwegs");
+        client.print("Ausgabe auf dem Display erfolgreich abgeschlossen! Schau hin.");
         break;
     }
 
@@ -193,10 +210,14 @@ bool Srvr__loop()
                 Paint_SelectImage(BlackImage);
                 Paint_Clear(WHITE);
 
+                myDeserialize();
+                const char *Meeting6="Meet6";
+
                 // 2.Drawing on the image
                 printf("Drawing:BlackImage\r\n");
                 Paint_DrawRectangle(0, 0, 800, 200, BLACK, DOT_PIXEL_1X1, DRAW_FILL_FULL);
                 Paint_DrawRectangle(20, 50, 550, 180, WHITE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
+                Paint_DrawCircle(685, 115, 50, WHITE, DOT_PIXEL_3X3, DRAW_FILL_EMPTY);
                 Paint_DrawString_EN(30, 70, "Aktuelles Meeting", &Font24, WHITE, BLACK);
                 Paint_DrawString_EN(30, 110, "Meeting: Consens Workshop IoT Tuerschild", &Font16, WHITE, BLACK);
                 Paint_DrawString_EN(30, 130, "Ansprechpartner: Stefan Slooten", &Font16, WHITE, BLACK);
@@ -206,10 +227,10 @@ bool Srvr__loop()
                 Paint_DrawString_EN(30, 300, "Meeting 3", &Font20, WHITE, BLACK);
                 Paint_DrawString_EN(30, 340, "Meeting 4", &Font20, WHITE, BLACK);
                 Paint_DrawString_EN(30, 380, "Meeting 5", &Font20, WHITE, BLACK);
+                Paint_DrawString_EN(30, 420, Meeting6, &Font20, WHITE, BLACK);
                 Paint_DrawNum(30, 20, 24, &Font20, WHITE, BLACK);
                 Paint_DrawNum(70, 20, 11, &Font20, WHITE, BLACK);
-                Paint_DrawNum(110, 20, 2022, &Font20, WHITE, BLACK);
-                Paint_DrawCircle(685, 115, 50, WHITE, DOT_PIXEL_3X3, DRAW_FILL_EMPTY);
+                Paint_DrawNum(110, 20, 2022, &Font20, WHITE, BLACK);                
                 Paint_DrawString_EN(650, 95, "Raum", &Font24, BLACK, WHITE);
                 Paint_DrawNum(670, 125, 12, &Font24, WHITE, BLACK);
 
