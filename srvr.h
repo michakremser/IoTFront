@@ -138,7 +138,7 @@ bool Srvr__file(WiFiClient client, int fileIndex, char *fileName)
         sendJS_D(client);
         break;
     case 5:
-        client.print("Ausgabe auf dem Display erfolgreich abgeschlossen! Schau hin.");
+        client.print("Ausgabe auf dem Display erfolgreich abgeschlossen! Schau auf das Schild.");
         break;
     }
 
