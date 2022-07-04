@@ -202,7 +202,8 @@ bool Srvr__loop()
                 char json[]= "{\"meeting1\":{ \"titel\":\"Meeting 1 \", \"uhrzeit\":\"14:00-15:00\"}, \"meeting2\":{ \"titel\":\"Meeting 2 \", \"uhrzeit\":\"15:00-16:00\"}, \"systeminfo\":{ \"datum\":\"04.07.2022 \", \"updateUhrzeit\":\"15:42\"}, \"meeting3\":{ \"titel\":\"Meeting 3 \", \"uhrzeit\":\"17:00-18:00\"}, \"meeting4\":{ \"titel\":\"Meeting 4 \", \"uhrzeit\":\"18:00-19:00\"}, \"aktuellesMeeting\":{ \"titel\":\"Abschlussvortrag \", \"uhrzeit\":\"13:00-14:00\"}}";
     
                 DynamicJsonDocument doc(2048);
-                deserializeJson(doc, json);                
+                deserializeJson(doc, json);  
+                              
 
                 // 2.Drawing on the image
                 printf("Drawing:BlackImage\r\n");
