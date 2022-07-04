@@ -210,7 +210,7 @@ bool Srvr__loop()
                 Paint_DrawRectangle(20, 50, 550, 180, WHITE, DOT_PIXEL_1X1, DRAW_FILL_FULL);
                 Paint_DrawCircle(685, 115, 50, WHITE, DOT_PIXEL_3X3, DRAW_FILL_EMPTY);
                 Paint_DrawString_EN(30, 70, doc["aktuellesMeeting"]["titel"], &Font24, WHITE, BLACK);
-                Paint_DrawString_EN(30, 110, "Meeting: Consens Workshop IoT Tuerschild", &Font16, WHITE, BLACK);
+                Paint_DrawString_EN(30, 110, "Meeting: Abschlussvortrag IoT Tuerschild", &Font16, WHITE, BLACK);
                 Paint_DrawString_EN(30, 130, "Ansprechpartner: Stefan Slooten", &Font16, WHITE, BLACK);
                 Paint_DrawString_EN(30, 150, doc["aktuellesMeeting"]["uhrzeit"], &Font16, WHITE, BLACK);
                 Paint_DrawString_EN(30, 210, "Folgende Meetings:", &Font24, WHITE, BLACK);
