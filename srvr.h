@@ -49,48 +49,8 @@ bool isIndexPage = true; // true : GET  request, client needs 'index' page;
 // false: POST request, server sends empty page.
 
 
-void myDeserialization(){
-  char json[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
-
-  DynamicJsonDocument doc(1024);
-  deserializeJson(doc, json);
-
-  Serial.println("Deserialize in Serial ");
-
-  const char *Meeting5="MeetIt5";
-  const char aktuellesMeeting[3]="jo";
-
-  const char* sensor = doc["sensor"];
-  long time          = doc["time"];
-  double latitude    = doc["data"][0];
-  double longitude   = doc["data"][1];
-  Serial.println("Versuch Sensor1");
-  printf("Bittesehr hier dein Wert %s",sensor);
-  Serial.println("Versuch Sensor2");
-  //Serial.println("oder hier %s",sensor);  
-  }
+ 
   
-  DynamicJsonDocument tryDeserialization(){
-  char json[] = "{\"sensor\":\"gps\",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
-
-  DynamicJsonDocument doc(1024);
-  deserializeJson(doc, json);
-
-  Serial.println("Deserialize in Serial ");
-
-  const char *Meeting5="MeetIt5";
-  const char aktuellesMeeting[3]="jo";
-
-  const char* sensor = doc["sensor"];
-  long time          = doc["time"];
-  double latitude    = doc["data"][0];
-  double longitude   = doc["data"][1];
-  Serial.println("Versuch Sensor1");
-  printf("Bittesehr hier dein Wert %s",sensor);
-  Serial.println("Versuch Sensor2");
-  //Serial.println("oder hier %s",sensor);  
-  return doc;
-  }
 /* Server initialization -------------------------------------------------------*/
 void Srvr__setup()
 {
@@ -239,9 +199,40 @@ bool Srvr__loop()
                 printf("SelectImage:BlackImage\r\n");
                 Paint_SelectImage(BlackImage);
                 Paint_Clear(WHITE);                
-                char json[] = "{\"sensor\":\"Meeting v2 \",\"time\":1351824120,\"data\":[48.756080,2.302038]}";  
-                DynamicJsonDocument doc(1024);
+                char json[] = "{\"meeting1\":\"Meeting 1 \",\"meeting2\":\"Meeting 2 \",\"meeting3\":\"Meeting 3 \",\"meeting4\":\"Meeting 4 \",\"aktuellesMeeting\":\"aktuelles Meeting \",\"time\":1351824120,\"data\":[48.756080,2.302038]}";
+                char json3[]= "{\"meeting1\":{ \"titel\":\"Meeting 1 \", \"uhrzeit\":\"16:00-17:00\"}}";
+    
+ 
+//                char json2[] = "{  "meeting1": {
+//                  "uhrzeit": "",
+//                  "titel": ""
+//                },
+//                "meeting2": {
+//                  "uhrzeit": "",
+//                  "titel": ""
+//                },
+//                "systeminfo": {
+//                  "datum": "04.07.22",
+//                  "updateUhrzeit": "13:16"
+//                },
+//                "meeting3": {
+//                  "uhrzeit": "",
+//                  "titel": ""
+//                },
+//                "meeting4": {
+//                  "uhrzeit": "",
+//                  "titel": ""
+//                },
+//                "aktuellesMeeting": {
+//                  "uhrzeit": "",
+//                  "titel": "Frei",
+//                  "verantwortlicher": ""
+//                }
+//                }";
+                DynamicJsonDocument doc(2048);
                 deserializeJson(doc, json);
+                DynamicJsonDocument doc3(2048);
+                deserializeJson(doc3, json3);
 
                 // 2.Drawing on the image
                 printf("Drawing:BlackImage\r\n");
@@ -253,11 +244,11 @@ bool Srvr__loop()
                 Paint_DrawString_EN(30, 130, "Ansprechpartner: Stefan Slooten", &Font16, WHITE, BLACK);
                 Paint_DrawString_EN(30, 150, "Uhrzeit: 14:00 - 15:00", &Font16, WHITE, BLACK);
                 Paint_DrawString_EN(30, 210, "Folgende Meetings:", &Font24, WHITE, BLACK);
-                Paint_DrawString_EN(30, 260, doc["sensor"], &Font20, WHITE, BLACK);
-                Paint_DrawString_EN(30, 300, "Meeting 3", &Font20, WHITE, BLACK);
-                Paint_DrawString_EN(30, 340, "Meeting 4", &Font20, WHITE, BLACK);
-                Paint_DrawString_EN(30, 380, "Meeting 5", &Font20, WHITE, BLACK);
-                Paint_DrawString_EN(30, 420, "Meeting 6", &Font20, WHITE, BLACK);
+                Paint_DrawString_EN(30, 260, doc["meeting1"], &Font20, WHITE, BLACK);
+                Paint_DrawString_EN(30, 300, doc["meeting2"], &Font20, WHITE, BLACK);
+                Paint_DrawString_EN(30, 340, doc["meeting3"], &Font20, WHITE, BLACK);
+                Paint_DrawString_EN(30, 380, doc["meeting4"], &Font20, WHITE, BLACK);
+                Paint_DrawString_EN(30, 420, doc3["meeting1"]["titel"], &Font20, WHITE, BLACK);
                 //Paint_DrawNum(200, 20, mylongitude, &Font20, WHITE, BLACK);
                 //Paint_DrawNum(30, 20, myInfo.tag , &Font20, WHITE, BLACK);
                 //Paint_DrawNum(70, 20, myInfo.monat, &Font20, WHITE, BLACK);
